@@ -1,0 +1,161 @@
+<input type="text" class="form-control" ng-model="$ctrl.criteria" placeholder=""><br><button class="btn btn-primary mb-3 pull-right" data-toggle="modal" data-target="#exampleModal2">Adicionar Colaborador</button><br><br><br>
+<div class="box-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CPF</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="colaborador in $ctrl.colaboradores | filter: criteria ">
+                <td>{{:: colaborador.cpf }}</td>
+                <td style="width:230px;"><button class="btn btn-outline-primary pull-right" data-toggle="modal" data-target="#exampleModa2">Ponto</button> <button class="btn btn-warning" ng-click="$ctrl.showTabUpdate(colaborador) "><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" ng-click="$ctrl.deleteColaborador(colaborador) "><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>{{$ctrl.criteria}}</tbody>
+    </table>
+</div>
+<!------------------------    MODAL CADASTRAR  --------------------------->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-title" id="exampleModalLabel">Cadastrar Colaborador</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="modal-body">
+                <form id="msform">
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Colaborador</strong></li>
+                        <li id="personal"><strong>Localização</strong></li>
+                        <li id="payment"><strong>Contatos</strong></li>
+                        <li id="confirm"><strong>Concluir</strong></li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!-- fieldsets -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h6 class="fs-title">Dados Colaborador</h6>
+                                </div>
+                            </div><input ng-model="$ctrl.colaborador.nome" type="text" class="form-control" placeholder="Nome Completo"> <input ng-model="$ctrl.colaborador.cpf" type="text" class="form-control" placeholder="CPF"> <input ng-model="$ctrl.colaborador.pis"
+                                type="text" class="form-control" placeholder="PIS"> <input ng-model="$ctrl.colaborador.ctps" type="text" class="form-control" placeholder="Numero CTPS"></div><input type="button" name="next" class="next action-button" value="Próximo"></fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h6 class="fs-title">Localização:</h6>
+                                </div>
+                            </div><input ng-model="$ctrl.colaborador.matricula" type="text" class="form-control" placeholder="Matricula"> <input ng-model="$ctrl.colaborador.admissao" type="text" class="form-control" placeholder="Admissão"> <input ng-model="$ctrl.colaborador.horario"
+                                type="text" class="form-control" placeholder="Horário"> <input ng-model="$ctrl.colaborador.setor " type="text" class="form-control" placeholder="Setor"></div><input type="button" name="next" class="next action-button" value="Próximo">                        <input type="button" name="previous" class="previous action-button-previous" value="Voltar"></fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h6 class="fs-title">Contatos</h6>
+                                </div>
+                            </div><input type="email" name="fname" placeholder="Email"> <input type="tel" name="fname" placeholder="Telefone"> <input type="text" name="lname" placeholder="Responsavel"></div><input type="button" name="next" class="next action-button"
+                            value="Submit"> <input type="button" name="previous" class="previous action-button-previous" value="Voltar"></fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Concluir:</h2>
+                                </div>
+                            </div><br><br>
+                            <h2 class="purple-text text-center"><strong>Clique em INCLUIR para cadastrar uma Colaborador.</strong></h2><br></div>
+                        <div class="modal-footer"><button class="btn btn-primary" ng-click="$ctrl.createColaborador()" ng-if="$ctrl.tabCreate">Incluir</button></div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------------         modal ver mais   -------------------------->
+<div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Folha de Ponto</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Entrada</th>
+                        <th scope="col">Saída</th>
+                        <th scope="col">Intervalo</th>
+                        <th scope="col">Horas trabalhadas</th>
+                        <th scope="col">Carga Horaria</th>
+                        <th scope="col">Hora Extra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+        </div>
+    </div>
+</div>

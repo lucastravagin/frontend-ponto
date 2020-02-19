@@ -1,0 +1,21 @@
+<div class="box-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Nome</th>
+                <th>Elemento</th>
+                <th>Speed</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pokemon in $ctrl.pokemons | filter: criteria ">
+                <td><img ng-src="{{ pokemon.urlImage }}" style="width: 64px; height: 64px;" class="rounded-circle img-fluid" alt="Foto Pokemon"></td>
+                <td>{{:: pokemon.name }}</td>
+                <td>{{:: pokemon.element }}</td>
+                <td>{{:: pokemon.speed }}</td>
+                <td style="width:140px;"><button class="btn btn-warning" ng-click="$ctrl.showTabUpdate(pokemon)"><i class="fa fa-pencil"></i></button> <button class="btn btn-danger" ng-click="$ctrl.showTabDelete(pokemon)"><i class="fa fa-trash-o"></i></button></td>
+            </tr>{{$ctrl.criteria}}</tbody>
+    </table>
+</div>

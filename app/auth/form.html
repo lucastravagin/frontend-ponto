@@ -1,0 +1,85 @@
+
+
+    <div class="xp-authenticate-bg"></div> 
+    <!-- Start XP Container -->
+    <div id="xp-container" class="xp-container" ng-controller="AuthCtrl as auth">
+
+        <!-- Start Container -->
+        <div class="container">
+
+            <!-- Start XP Row -->
+            <div class="row vh-100 align-items-center">
+                <!-- Start XP Col -->
+                <div class="col-lg-12 ">
+
+                    <!-- Start XP Auth Box -->
+                    <div class="xp-auth-box">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-center mt-0 m-b-5">
+                                    <a href="index.html" class="xp-web-logo"><img src="/assets/Oursys.png" height="50" alt="logo"></a>
+                                </h4>
+                                <div class="p-3">
+                                    <form>
+                                        
+                                        <div class="text-center">
+                                            
+                                            <p class="text-muted"><a href ng-click="auth.changeMode()">{{ auth.loginMode ? 
+                                                'Novo usuário? Registrar aqui!' :
+                                                'Já é cadastrado? Entrar aqui!' }}</a></p>
+                                            
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <input ng-model="auth.empresa.cnpj" ng-hide="auth.loginMode" type="text" class="form-control" id="cnpj" placeholder="CNPJ" required>
+                                            <div class="input-group-btn">
+                                                <button ng-click="auth.buscaCNPJ()" ng-hide="auth.loginMode" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div> 
+                                                                           
+                                        <div class="form-group">
+                                            <input ng-model="auth.empresa.razao_social" ng-hide="auth.loginMode" type="text" class="form-control" id="razao_social" placeholder="Razão Social" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input ng-model="auth.empresa.nome_fantasia" ng-hide="auth.loginMode" type="text" class="form-control" id="nome_fantasia" placeholder="Nome Fantasia" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input ng-model="auth.empresa.email" type="text" class="form-control" id="email" placeholder="E-mail" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input ng-model="auth.empresa.password"  type="password" class="form-control" id="senha" placeholder="Senha" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input ng-hide="auth.loginMode" ng-model="auth.empresa.confirm_password" type="password" class="form-control" id="conf_senha" placeholder="Confirmar Senha" required>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <div class="custom-control custom-checkbox">
+                                                  <input type="checkbox" class="custom-control-input" id="rememberme">
+                                                  <label class="custom-control-label" for="rememberme">Manter conectado</label>
+                                                </div>                                
+                                            </div>
+                                            <div class="form-group col-6 text-right">
+                                              <label class="forgot-psw"> 
+                                                <a id="forgot-psw" href="">Esqueceu sua senha?</a>
+                                              </label>
+                                            </div>
+                                        </div>                          
+                                      <a href="javascript:;" ng-click="auth.login()" ng-show="auth.loginMode" class="btn btn-primary btn-rounded btn-lg btn-block">Entrar</a>
+                                      <a href="javascript:;" ng-click="auth.signup()" ng-hide="auth.loginMode" class="btn btn-primary btn-rounded btn-lg btn-block">Registrar</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End XP Auth Box -->
+
+                </div>
+                <!-- End XP Col -->
+            </div>
+            <!-- End XP Row -->
+        </div>
+        <!-- End Container -->
+    </div>
+ 

@@ -1,0 +1,40 @@
+<div class="row" ng-controller="EmpresaCtrl as $ctrl">
+    <div class="col-lg-12">
+        <div class="card m-b-30">
+            <div class="card-header bg-white">
+                <h5 class="card-title text-black">Cadastro de Empresa</h5>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs mb-3" id="defaultTab" role="tablist">
+                    <li ng-if="$ctrl.tabList" class="nav-item">
+                        <a class="nav-link" ng-class="{active: $ctrl.tabList}" data-toggle="tab" href data-target="#tabList" role="tab">Listar</a>
+                    </li>
+
+                    <li ng-if="$ctrl.tabUpdate" class="nav-item">
+                        <a class="nav-link" data-toggle="tab" ng-class="{active: $ctrl.tabUpdate}" href data-target="#tabUpdate" role="tab">Alterar</a>
+                    </li>
+                    <li ng-if="$ctrl.tabDelete" class="nav-item">
+                        <a class="nav-link" data-toggle="tab" ng-class="{active: $ctrl.tabDelete}" href data-target="#tabDelete" role="tab">Excluir</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="defaultTabContent">
+                    <div ng-if="$ctrl.tabList" ng-class="{active: $ctrl.tabList}" class="tab-pane" id="tabList" ng-include="'empresa/list.html'" role="tabpanel">
+
+                    </div>
+                    <div ng-if="$ctrl.tabCreate" ng-class="{active: $ctrl.tabNew}" class="tab-pane" id="tabCreate" ng-include="'empresa/form.html'" role="tabpanel">
+
+                    </div>
+
+                    <div ng-if="$ctrl.tabUpdate" ng-class="{active: $ctrl.tabUpdate}" ng-include="'empresa/form.html'" class="tab-pane" id="tabUpdate" role="tabpanel">
+
+                    </div>
+                    <div ng-if="$ctrl.tabDelete" ng-class="{active: $ctrl.tabDelete}" ng-include="'empresa/form.html'" class="tab-pane" id="tabDelete" role="tabpanel">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

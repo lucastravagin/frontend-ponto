@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="qrPonto">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/assets/css/deps.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css">
+
+    <title>QrPonto</title>
+</head>
+
+<body class="xp-vertical">
+    <div id="xp-container">
+        <aside class="xp-leftbar" ng-include="'/template/menu.html'"></aside>
+        <div class="xp-rightbar">
+            <header class="xp-topbar" ng-include="'/template/header.html'"> </header>
+            <div class="xp-contentbar" ui-view></div>
+            <footer class="xp-footerbar" ng-include="'/template/footer.html'"> </footer>
+        </div>
+    </div>
+    <script src="/assets/js/deps.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
+</body>
+
+</html>

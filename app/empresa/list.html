@@ -13,24 +13,14 @@
         <br/>
         <br/>
         <tbody>
-            <tr ng-repeat="empresa in $ctrl.empresas | filter: criteria ">
-
-
-                <td>{{:: empresa.cnpj }}</td>
+            <tr>
+                <td>{{:: $ctrl.empresas.cnpj }}</td>
 
                 <td style="width:230px;">
 
                     <button class="btn btn-outline-primary  pull-right" data-toggle="modal" data-target="#exampleModa2">ver mais</button>
 
                     <button class="btn btn-warning" ng-click="$ctrl.showTabUpdate(empresa)"><i class="fa fa-pencil"></i></button>
-
-
-
-                    <button class="btn btn-danger" ng-click="$ctrl.deleteEmpresa(empresa) "><i class="fa fa-trash-o"></i></button>
-
-
-
-
 
                 </td>
             </tr>

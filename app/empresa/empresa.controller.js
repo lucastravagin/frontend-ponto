@@ -15,12 +15,15 @@
 
         const vm = this
         const url = `${consts.apiUrl}/empresas`
+        const empresa = JSON.parse(localStorage.getItem(consts.userKey))
+        
+        
 
- 
 
         //Busca as Empresas
         vm.getEmpresas = () => {
-            $http.get(url).then((resp) => {
+            
+            $http.get(`${url}/${empresa._id}`).then((resp) => {
                 vm.empresas = resp.data
                 vm.empresa = {}
                 tabs.show(vm, { tabList: true, tabCreate: true })

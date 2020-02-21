@@ -12,7 +12,7 @@
                 <td style="width:230px;"><button class="btn btn-outline-primary pull-right" data-toggle="modal" data-target="#exampleModa2">Ponto</button> <button class="btn btn-warning" ng-click="$ctrl.showTabUpdate(colaborador) "><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger" ng-click="$ctrl.deleteColaborador(colaborador) "><i class="fa fa-trash-o"></i></button>
                 </td>
-            </tr>{{$ctrl.criteria}}</tbody>
+            
     </table>
 </div>
 <!------------------------    MODAL CADASTRAR  --------------------------->
@@ -46,7 +46,7 @@
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
-                                    <h6 class="fs-title">Localização:</h6>
+                                    <h6 class="fs-title">Dados da Empresa:</h6>
                                 </div>
                             </div><input ng-model="$ctrl.colaborador.matricula" type="text" class="form-control" placeholder="Matricula"> <input ng-model="$ctrl.colaborador.admissao" type="text" class="form-control" placeholder="Admissão"> <input ng-model="$ctrl.colaborador.horario"
                                 type="text" class="form-control" placeholder="Horário"> <input ng-model="$ctrl.colaborador.setor " type="text" class="form-control" placeholder="Setor"></div><input type="button" name="next" class="next action-button" value="Próximo">                        <input type="button" name="previous" class="previous action-button-previous" value="Voltar"></fieldset>

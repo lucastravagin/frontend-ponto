@@ -16,23 +16,24 @@
         
         const vm = this
         const url = `${consts.apiUrl}/colaboradores`
-
-
-
+        vm.empresa = JSON.parse(localStorage.getItem(consts.userKey))
+        const urlColaboradores =  `${consts.apiUrl}/colaborador-empresa/${vm.empresa._id}`
+        
 
         //Busca as colaborador
         vm.getColaboradores = () => {
-            $http.get(url).then((resp) => {
+            $http.get(urlColaboradores).then((resp) => {
                 vm.colaboradores = resp.data
                 vm.colaborador = {}
                 tabs.show(vm, { tabList: true, tabCreate: true })
             }).catch((resp) => {
-                msgs.addError(resp.data.errors)
+                msgs.addError(resp.data)
             })
         }
 
         //Cria a colaborador
         vm.createColaborador = () => {
+            vm.colaborador.empresa = vm.empresa._id
             $http.post(url, vm.colaborador).then((resp) => {
                 vm.colaborador = {}
                 vm.getColaboradores()
@@ -49,14 +50,14 @@
                 vm.colaborador = {}
                 vm.getColaborador();
                 tabs.show(vm, { tabList: true, tabCreate: true })
-                msgs.addSuccess('Colaborador cadastrado com sucesso')
+                msgs.addSuccess('Colaborador alterado com sucesso')
             }).catch((resp) => {
                 msgs.addError(resp.data)
             })
         }
 
         //Exclui a colaborador
-        vm.deleteColaborador = () => {
+        vm.deleteColaborador = (colaborador) => {
             SweetAlert.swal({
                     title: "Você Tem Certeza?",
                     text: "Deseja Deletar Funcionário?",
@@ -70,7 +71,7 @@
                 },
                 function(isConfirm) {
                     if (isConfirm) {
-                        const urlDelete = `${consts.apiUrl}/colaboradores/${vm.colaborador._id}`
+                        const urlDelete = `${consts.apiUrl}/colaboradores/${colaborador._id}`
                         $http.delete(urlDelete, vm.colaborador).then(function(resp) {
                             vm.colaborador = {}
                             vm.getColaboradores()
@@ -78,7 +79,7 @@
                         })
                         SweetAlert.swal("Deletado!", "Seu Funcionário Foi Deletado.", "success");
                     } else {
-                        SweetAlert.swal("Cancelled", resp.data, "error");
+                        SweetAlert.swal("Cancelado", resp.data, "error");
                     }
                 });
         }

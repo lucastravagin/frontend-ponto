@@ -10,7 +10,7 @@
 
         vm.getSummary = function() {
             $http.get(`${consts.apiUrl}/colaboradores/count`).then(function(resp) {
-                console.log(resp)
+                
                 vm.total = resp.data
             })
         }

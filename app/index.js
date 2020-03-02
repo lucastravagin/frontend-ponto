@@ -5,5 +5,6 @@ const app = angular.module('qrPonto', [
     'toastr',
     'oc.lazyLoad',
     'oitozero.ngSweetAlert',
-    'ui.utils.masks'
+    'ui.utils.masks',
+    'angucomplete-alt'
 ])

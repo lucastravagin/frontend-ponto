@@ -1,17 +1,14 @@
 (function () {
-
-    app.controller('ColaboradorCtrl', [
-        'tabs',
+    app.controller('RelatorioCtrl', [
         '$http',
         'consts',
         'msgs',
-        '$ocLazyLoad',
-        'SweetAlert',
-        ColaboradorController
-
+        RelatorioController
     ])
 
-    function ColaboradorController(tabs, $http, consts, msgs, $ocLazyLoad, SweetAlert) {
+    function RelatorioController($http, consts, msgs) {
+
+        $('.xp-select2-single').select2();
 
 
         const vm = this
@@ -20,105 +17,50 @@
         const urlColaboradores = `${consts.apiUrl}/colaborador-empresa/${vm.empresa._id}`
 
 
+        vm.colaboradores = [
+
+        ]
+
         //Busca as colaborador
         vm.getColaboradores = () => {
             $http.get(urlColaboradores).then((resp) => {
                 vm.colaboradores = resp.data
                 vm.colaborador = {}
-                tabs.show(vm, { tabList: true, tabCreate: true })
             }).catch((resp) => {
-                msgs.addError(resp.data)
+                msgs.addError(resp)
             })
         }
 
-        //Cria a colaborador
-        vm.createColaborador = () => {
-            vm.colaborador.empresa = vm.empresa._id
-            $http.post(url, vm.colaborador).then((resp) => {
-                vm.colaborador = {}
-                vm.getColaboradores()
-                msgs.addSuccess('Colaborador cadastrado com sucesso')
-            }).catch((resp) => {
-                msgs.addError(resp.data.errors)
-            })
-        }
+        vm.getColaboradores()
 
-        //Alera a colaborador
-        vm.updateColaborador = () => {
-            const urlUpdate = `${consts.apiUrl}/colaboradores/${vm.colaborador._id}`
-            $http.put(urlUpdate, vm.colaborador).then((resp) => {
-                vm.colaborador = {}
-                vm.getColaborador();
-                tabs.show(vm, { tabList: true, tabCreate: true })
-                msgs.addSuccess('Colaborador alterado com sucesso')
-            }).catch((resp) => {
-                msgs.addError(resp.data)
-            })
-        }
 
-        //Exclui a colaborador
-        vm.deleteColaborador = (colaborador) => {
-            SweetAlert.swal({
-                title: "Você Tem Certeza?",
-                text: "Deseja Deletar Funcionário?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Sim, Deletar!",
-                cancelButtonText: "Não, cancelar!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        const urlDelete = `${consts.apiUrl}/colaboradores/${colaborador._id}`
-                        $http.delete(urlDelete, vm.colaborador).then(function (resp) {
-                            vm.colaborador = {}
-                            vm.getColaboradores()
-                            tabs.show(vm, { tabList: true, tabCreate: true })
-                        })
-                        SweetAlert.swal("Deletado!", "Seu Funcionário Foi Deletado.", "success");
-                    } else {
-                        SweetAlert.swal("Cancelado", resp.data, "error");
-                    }
-                });
-        }
+        vm.localSearch = function (str, colaboradores) {
+            var matches = []
+            colaboradores.forEach(function (colaborador) {
+                var fullName = colaborador.nome + ' ' + colaborador.pin + '' + colaborador.cpf;
+                if ((colaborador.nome.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||
+                    (colaborador.pin.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||
+                    (fullName.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+                    matches.push(colaborador);
+                }
+            });
+            return matches;
+        };
 
-        vm.getHorasTrabalhadas = (id) => {
-            $http.get(`${url}/${id}/horas_trabalhadas`)
+
+        vm.getHorasTrabalhadas = (colaborador) => {
+            console.log(colaborador)
+            $http.get(`${url}/${colaborador.originalObject._id}/horas_trabalhadas`)
                 .then((resp) => {
-                    
                     vm.horas_trabalhadas = resp.data
+                    carregaTable(colaborador)
                 })
                 .catch((resp) => {
                     msgs.addError(resp.data)
                 })
         }
 
-
-
-        vm.carregarDataNoSelect = () => {
-            vm.arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-        }
-
-
-        vm.showTabUpdate = (colaborador) => {
-            vm.colaborador = colaborador
-            tabs.show(vm, { tabUpdate: true })
-        }
-
-        vm.showTabDelete = (colaborador) => {
-            vm.colaborador = colaborador
-            tabs.show(vm, { tabDelete: true })
-        }
-
-        vm.cancel = () => {
-            tabs.show(vm, { tabList: true, tabCreate: true })
-        }
-
-
-        vm.getColaboradores()
-
+       function carregaTable(colaborador) {
         setTimeout(() => {
             /* -----  Table - Datatable  ----- */
             $('#datatable').DataTable();
@@ -134,14 +76,14 @@
                     {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         },
                         pageSize: 'A4',
                         text: 'PDF',
-                        title: 'Empresa Cadastrada no Oursys QrPonto',
+                        title: `Relatório de Ponto ${colaborador.originalObject.nome}`,
                         customize: function (doc) {
-                            doc.content[1].margin = [50, 0, 50, 0] //left, top, right, bottom
-                            doc.content[1].table.widths = ['35%', '30%', '35%']
+                            doc.content[1].margin = [25, 0, 25, 0] //left, top, right, bottom
+                            doc.content[1].table.widths = ['25%', '10%', '10%', '10%', '10%', '10%', '25%']
 
                             doc.content.splice(1, 0, {
                                 margin: [0, 0, 0, 12],
@@ -153,21 +95,21 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
                         extend: 'print',
 
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         },
                         text: 'Imprimir'
                     },
                     {
                         extend: 'copy',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         },
                         text: 'Copiar'
                     }
@@ -194,12 +136,13 @@
                 //     { extend: 'pdf', className: 'btn-primary' }
                 //   ]
             });
-           
-           
+
+
             table.buttons().container()
                 .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-          
-        }, 300)
-    }
 
+        }, 300)
+       }
+
+    }
 })()

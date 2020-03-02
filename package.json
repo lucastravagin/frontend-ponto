@@ -33,6 +33,7 @@
     "dependencies": {
         "angular-input-masks": "^4.4.1",
         "angular-sweetalert": "^1.1.2",
-        "oclazyload": "^1.1.0"
+        "oclazyload": "^1.1.0",
+        "angucomplete-alt": "^3.0.0"
     }
 }

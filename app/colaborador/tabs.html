@@ -1,40 +1,202 @@
-<div class="row" ng-controller="ColaboradorCtrl as $ctrl">
-    <div class="col-lg-12">
-        <div class="card m-b-30">
-            <div class="card-header bg-white">
-                <h5 class="card-title text-black">Cadastro de Colaborador</h5>
+<div ng-controller="ColaboradorCtrl as $ctrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-header bg-primary">
+                    <button class="btn btn-info pull-right" data-toggle="modal" data-target="#exampleModal2">Adicionar
+                        Colaborador</button>
+                    <h5 class="card-title text-white">Cadastro de Colaborador</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Setor</th>
+                                    <th>Telefone</th>
+                                    <th>Pis</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="colaborador in $ctrl.colaboradores">
+                                    <td>{{colaborador.nome}}</td>
+                                    <td>{{colaborador.cpf}}</td>
+                                    <td>{{colaborador.setor}}</td>
+                                    <td>{{colaborador.telefone}}</td>
+                                    <td>{{colaborador.pis}}</td>
+                                    <td style="width:230px;">
+                                        <button ng-click="$ctrl.getHorasTrabalhadas(colaborador._id)"
+                                            class="btn btn-outline-primary  pull-right" data-toggle="modal"
+                                            data-target="#exampleModa2">Relatório</button>
+                                        <button class="btn btn-warning" ng-click="$ctrl.showTabUpdate(colaborador) "><i
+                                                class="fa fa-pencil"></i></button> <button class="btn btn-danger"
+                                            ng-click="$ctrl.deleteColaborador(colaborador) "><i
+                                                class="fa fa-trash-o"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <ul class="nav nav-tabs mb-3" id="defaultTab" role="tablist">
-                    <li ng-if="$ctrl.tabList" class="nav-item">
-                        <a class="nav-link" ng-class="{active: $ctrl.tabList}" data-toggle="tab" href data-target="#tabList" role="tab">Listar</a>
-                    </li>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title fs-title" id="exampleModalLabel">Cadastrar Colaborador</h6><button
+                        type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="msform">
+                        <!-- progressbar -->
+                        <ul id="progressbar">
+                            <li class="active" id="account"><strong>Colaborador</strong></li>
+                            <li id="personal"><strong>Dados Empresa</strong></li>
+                            <li id="payment"><strong>Contatos</strong></li>
 
-                    <li ng-if="$ctrl.tabUpdate" class="nav-item">
-                        <a class="nav-link" data-toggle="tab" ng-class="{active: $ctrl.tabUpdate}" href data-target="#tabUpdate" role="tab">Alterar</a>
-                    </li>
-                    <li ng-if="$ctrl.tabDelete" class="nav-item">
-                        <a class="nav-link" data-toggle="tab" ng-class="{active: $ctrl.tabDelete}" href data-target="#tabDelete" role="tab">Excluir</a>
-                    </li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <!-- fieldsets -->
+                        <fieldset>
+                            <div class="form-card">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h6 class="fs-title">Dados Colaborador</h6>
+                                    </div>
+                                </div>
+                                <input ng-show="false" ng-model="$ctrl.colaborador.empresa" type="text"
+                                    class="form-control" placeholder="Id">
+                                <input ng-model="$ctrl.colaborador.nome" type="text" class="form-control"
+                                    placeholder="Nome Completo"> <input ng-model="$ctrl.colaborador.cpf" type="text"
+                                    class="form-control" placeholder="CPF"> <input ng-model="$ctrl.colaborador.pis"
+                                    type="text" class="form-control" placeholder="PIS"> <input
+                                    ng-model="$ctrl.colaborador.ctps" type="text" class="form-control"
+                                    placeholder="Numero CTPS">
+                            </div><input type="button" name="next" class="next action-button" value="Próximo">
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-card">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h6 class="fs-title">Dados da Empresa:</h6>
+                                    </div>
+                                </div><input ng-model="$ctrl.colaborador.matricula" type="text" class="form-control"
+                                    placeholder="Matricula"> <input ng-model="$ctrl.colaborador.admissao" type="text"
+                                    class="form-control" placeholder="Admissão">
+                                <input ng-model="$ctrl.colaborador.setor " type="text" class="form-control"
+                                    placeholder="Setor">
+                            </div><input type="button" name="next" class="next action-button" value="Próximo"> <input
+                                type="button" name="previous" class="previous action-button-previous" value="Voltar">
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-card">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h6 class="fs-title">Contatos</h6>
+                                    </div>
+                                </div><input ng-model="$ctrl.colaborador.email " type="email" name="email"
+                                    placeholder="Email">
+                                <input ng-model="$ctrl.colaborador.telefone" type="text" name="tel"
+                                    placeholder="Telefone">
+                                <input ng-model="$ctrl.colaborador.celular" type="text" name="lname"
+                                    placeholder="Celular">
+                            </div>
 
-                </ul>
-                <div class="tab-content" id="defaultTabContent">
-                    <div ng-if="$ctrl.tabList" ng-class="{active: $ctrl.tabList}" class="tab-pane" id="tabList" ng-include="'colaborador/list.html'" role="tabpanel">
 
+
+
+                            <button data-dismiss="modal" class="action-button-previouss"
+                                ng-click="$ctrl.createColaborador()" ng-if="$ctrl.tabCreate">Incluir</button>
+
+                            <input type="button" name="previous" class="previous action-button-previous" value="Voltar">
+
+
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------------         modal ver mais   -------------------------->
+
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Folha de Ponto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="datatable-folha" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Intervalo</th>
+                                    <th scope="col">Retorno</th>
+                                    <th scope="col">Saída</th>
+                                    <th scope="col">Horas Trabalhadas</th>
+                                    <th scope="col">Hora Extra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="hora_trabalhada in $ctrl.horas_trabalhadas">
+                                    <td>{{hora_trabalhada.date}}</td>
+                                    <td>{{hora_trabalhada.pontos[0]}}</td>
+                                    <td>{{hora_trabalhada.pontos[1]}}</td>
+                                    <td>{{hora_trabalhada.pontos[2]}}</td>
+                                    <td>{{hora_trabalhada.pontos[3]}}</td>
+                                    <td> {{hora_trabalhada.duracao[0]}}</td>
+                                    <td>{{hora_trabalhada.hora_extra}}</td>
+            
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div ng-if="$ctrl.tabCreate" ng-class="{active: $ctrl.tabNew}" class="tab-pane" id="tabCreate" ng-include="'colaborador/form.html'" role="tabpanel">
+                </div>
+                <!-- <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                
+                        <th scope="col">Data</th>
+                        <th scope="col">Entrada</th>
+                        <th scope="col">Intervalo</th>
+                        <th scope="col">Retorno</th>
+                        <th scope="col">Saída</th>
+                        <th scope="col">Horas Trabalhadas</th>
+                        <th scope="col">Hora Extra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="hora_trabalhada in $ctrl.horas_trabalhadas">
+                        <td>{{hora_trabalhada.date}}</td>
+                        <td>{{hora_trabalhada.pontos[0]}}</td>
+                        <td>{{hora_trabalhada.pontos[1]}}</td>
+                        <td>{{hora_trabalhada.pontos[2]}}</td>
+                        <td>{{hora_trabalhada.pontos[3]}}</td>
+                        <td> {{hora_trabalhada.duracao[0]}}</td>
+                        <td>{{hora_trabalhada.hora_extra}}</td>
 
-                    </div>
+                    </tr>
+                </tbody>
+            </table> -->
 
-                    <div ng-if="$ctrl.tabUpdate" ng-class="{active: $ctrl.tabUpdate}" ng-include="'colaborador/form.html'" class="tab-pane" id="tabUpdate" role="tabpanel">
-
-                    </div>
-                    <div ng-if="$ctrl.tabDelete" ng-class="{active: $ctrl.tabDelete}" ng-include="'colaborador/form.html'" class="tab-pane" id="tabDelete" role="tabpanel">
-
-                    </div>
-
-                    <!---->
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 
                 </div>
             </div>

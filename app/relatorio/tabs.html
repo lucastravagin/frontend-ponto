@@ -1,0 +1,86 @@
+<div ng-controller="RelatorioCtrl as $ctrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-header bg-primary">
+                    <h5 class="card-title text-white">Pesquisar Relatório de Ponto</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="inputEmail4">Pesquisar por Nome</label>
+                                <div angucomplete-alt id="ex2" placeholder="Search people" pause="300"
+                                    selected-object="selectedPerson" local-data="$ctrl.colaboradores" title-field="nome"
+                                    description-field="cpf" image-field="pic" minlength="1"
+                                    input-class="form-control form-control-small" match-class="highlight"
+                                    local-search="$ctrl.localSearch">
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword4">Por Mês</label>
+                                <select class="form-control">
+                                    <option>Escolha um mês</option>
+                                    <option value="01">Janeiro</option>
+                                    <option value="02">Fevereiro</option>
+                                    <option value="03">Março</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Maio</option>
+                                    <option value="06">Junho</option>
+                                    <option value="07">Julho</option>
+                                    <option value="08">Agosto</option>
+                                    <option value="09">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 m-t-30">
+                                <button ng-click="$ctrl.getHorasTrabalhadas(selectedPerson)" type="submit"
+                                    class="btn btn-primary mb-2">Pesquisar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="$ctrl.horas_trabalhadas.length > 0">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Entrada</th>
+                                    <th>Intervalo</th>
+                                    <th>Retorno</th>
+                                    <th>Saída</th>
+                                    <th>Horas Trabalhadas</th>
+                                    <th>Hora Extra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="hora_trabalhada in $ctrl.horas_trabalhadas">
+                                    <td>{{hora_trabalhada.date}}</td>
+                                    <td>{{hora_trabalhada.pontos[0]}}</td>
+                                    <td>{{hora_trabalhada.pontos[1]}}</td>
+                                    <td>{{hora_trabalhada.pontos[2]}}</td>
+                                    <td>{{hora_trabalhada.pontos[3]}}</td>
+                                    <td> {{hora_trabalhada.duracao[0]}}</td>
+                                    <td>{{hora_trabalhada.hora_extra}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

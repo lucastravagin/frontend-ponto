@@ -94,15 +94,26 @@
                         document.getElementById('contador-li').classList.remove('active')
                         document.getElementById('empresa-li').classList.remove('active')
                         document.getElementById('colaborador-li').classList.remove('active')
+                        document.getElementById('relatorio-li').classList.remove('active')
                         document.getElementById('dashboard-li').classList.toggle('active');
                         carregaJquery()
                     }, 500)
 
                 }
-            }).state('pokemon', {
-                url: "/pokemon",
-                templateUrl: "pokemon/tabs.html",
+            }).state('relatorio', {
+                url: "/relatorio",
+                templateUrl: "relatorio/tabs.html",
+                controller: function () {
+                    setTimeout(() => {
+                        document.getElementById('contador-li').classList.remove('active')
+                        document.getElementById('empresa-li').classList.remove('active')
+                        document.getElementById('colaborador-li').classList.remove('active')
+                        document.getElementById('dashboard-li').classList.remove('active');
+                        document.getElementById('relatorio-li').classList.toggle('active')
+                        carregaJquery()
+                    }, 500)
 
+                }
             }).state('empresa', {
                 url: "/empresa",
                 templateUrl: "empresa/tabs.html",
@@ -111,6 +122,7 @@
                     document.getElementById('empresa-li').classList.toggle('active')
                     document.getElementById('colaborador-li').classList.remove('active')
                     document.getElementById('dashboard-li').classList.remove('active');
+                    document.getElementById('relatorio-li').classList.remove('active')
                     carregaJquery()
                 }
             })
@@ -122,6 +134,7 @@
                         document.getElementById('empresa-li').classList.remove('active')
                         document.getElementById('colaborador-li').classList.toggle('active')
                         document.getElementById('dashboard-li').classList.remove('active');
+                        document.getElementById('relatorio-li').classList.remove('active')
                         carregaJquery()
                     }
                 })
@@ -133,6 +146,7 @@
                         document.getElementById('empresa-li').classList.remove('active')
                         document.getElementById('colaborador-li').classList.remove('active')
                         document.getElementById('dashboard-li').classList.remove('active');
+                        document.getElementById('relatorio-li').classList.remove('active')
                     }
                 })
 
@@ -145,10 +159,12 @@
         '$location',
         '$window',
         'auth',
-        function ($rootScope, $http, $location, $window, auth) {
+        '$ocLazyLoad',
+        function ($rootScope, $http, $location, $window, auth, $ocLazyLoad) {
             validateUser()
             $rootScope.$on('$locationChangeStart', () => validateUser())
-
+            
+           
             function validateUser() {
                 const user = auth.getUser()
                 const authPage = '/auth.html'

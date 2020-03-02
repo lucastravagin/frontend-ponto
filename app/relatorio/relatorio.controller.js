@@ -69,7 +69,7 @@
                 "order": [[3, "desc"]]
             });
 
-            var table = $('#datatable-buttons').DataTable({
+            var table = $('#datatable-folha').DataTable({
                 lengthChange: false,
                 buttons: ['copy', 'excel', 'pdf', 'print'],
                 buttons: [
@@ -139,7 +139,7 @@
 
 
             table.buttons().container()
-                .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+                .appendTo('#datatable-folha_wrapper .col-md-6:eq(0)');
 
         }, 300)
        }

@@ -31,6 +31,7 @@
                 .then(resp => {
                     localStorage.setItem(consts.userKey, JSON.stringify(resp.data))
                     $http.defaults.headers.common.Authorization = resp.data.token
+                    location.reload();
                     if (callback) callback(null, resp.data)
                 }).catch(function (resp) {
                     if (callback) callback(resp.data.errors, null)
